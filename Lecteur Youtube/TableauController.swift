@@ -14,6 +14,8 @@ class TableauController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     var chansons = [Chanson]()
     
+    let identifiantCell = "ChansonCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         TableView.delegate = self
@@ -27,7 +29,17 @@ class TableauController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {        // Quelle Cellule renvoyer et repeupler // Fonction OBLIGATOIRE
+        let chanson = chansons[indexPath.row]                                                               // récupération de l'index de la chanson voulue
+        if let cell = tableView.dequeueReusableCell(withIdentifier: identifiantCell) as? ChansonCell {      // Cellule réutilisable
+            cell.creerCell(chanson)
+            return cell
+        }
+        
         return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 178
     }
     
     func ajouterChanson() {
